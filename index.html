@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applova Digital Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Signup Page -->
+    <div id="signupPage" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-card-inner">
+                <div class="auth-header">
+                    <h1>Set up your Business</h1>
+                    <p>Fill in your profile details below</p>
+                </div>
+                <div class="auth-body">
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label class="form-label">Business Name</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-store input-icon"></i>
+                                <input type="text" class="form-control" placeholder="Enter your business name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <div class="phone-input">
+                                <div class="country-code">
+                                    <select class="form-control" required>
+                                        <option value="+91">🇮🇳 India +91</option>
+                                        <option value="+1">🇺🇸 United States +1</option>
+                                        <option value="+44">🇬🇧 United Kingdom +44</option>
+                                        <option value="+61">🇦🇺 Australia +61</option>
+                                        <option value="+971">🇦🇪 UAE +971</option>
+                                    </select>
+                                </div>
+                                <div class="phone-number">
+                                    <input type="tel" class="form-control" placeholder="Phone number" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-control" placeholder="Create a password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-control" placeholder="Confirm your password" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-rocket"></i> Create Account
+                        </button>
+                        
+                        <div class="divider">
+                            <span>OR</span>
+                        </div>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="switchToLogin()">
+                            <i class="fas fa-sign-in-alt"></i> Already have an account? Sign In
+                        </button>
+                    </form>
+                </div>
+                <div class="auth-footer">
+                    <p>By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="auth-container" style="display: none;">
+        <div class="auth-card">
+            <div class="auth-card-inner">
+                <div class="auth-header">
+                    <h1>Welcome Back!</h1>
+                    <p>Log in to your Applova account</p>
+                </div>
+                <div class="auth-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-control" placeholder="Enter your password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="form-check">
+                                <input type="checkbox" id="rememberMe" class="form-check-input">
+                                <label for="rememberMe" class="form-check-label">Remember me</label>
+                            </div>
+                            <a href="#" onclick="showForgotPassword()" style="font-size: 14px; color: var(--primary);">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-sign-in-alt"></i> Log In
+                        </button>
+                        
+                        <div class="auth-footer">
+                            <p>Don't have an account? <a href="#" onclick="switchToSignup()">Sign up now</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" style="display: none;">
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <span>Applova</span>
+                    </div>
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="showSection('dashboardHome')">
+                            <i class="fas fa-home nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('menuBuilder')">
+                            <i class="fas fa-concierge-bell nav-icon"></i>
+                            <span class="nav-text">Menu Builder</span>
+                            <span class="nav-badge">12</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('orders')">
+                            <i class="fas fa-clipboard-list nav-icon"></i>
+                            <span class="nav-text">Orders</span>
+                            <span class="nav-badge">8</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('analytics')">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showCustomerMenu()">
+                            <i class="fas fa-eye nav-icon"></i>
+                            <span class="nav-text">View Menu</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('settings')">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content" id="mainContent">
+                <!-- Top Bar -->
+                <div class="top-bar">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-bar" placeholder="Search for orders, menu items, or settings...">
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" onclick="toggleDarkMode()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <div class="user-profile" onclick="showProfileMenu()">
+                            <div class="user-avatar">JD</div>
+                            <div class="user-info">
+                                <h4>John Doe</h4>
+                                <p>Restaurant Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Home -->
+                <div id="dashboardHome" class="dashboard-section">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Today's Orders</h3>
+                                    <div class="stat-value">24</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> 12% from yesterday
+                                    </div>
+                                </div>
+                                <div class="stat-icon orders">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Today's Revenue</h3>
+                                    <div class="stat-value">₹8,248</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> 8% from yesterday
+                                    </div>
+                                </div>
+                                <div class="stat-icon revenue">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Active Customers</h3>
+                                    <div class="stat-value">48</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> 5 new today
+                                    </div>
+                                </div>
+                                <div class="stat-icon customers">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Menu Items</h3>
+                                    <div class="stat-value">36</div>
+                                    <div class="stat-change">
+                                        <i class="fas fa-plus"></i> Add new
+                                    </div>
+                                </div>
+                                <div class="stat-icon items">
+                                    <i class="fas fa-hamburger"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-builder">
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Orders</h2>
+                            <button class="btn btn-sm" onclick="showSection('orders')">
+                                <i class="fas fa-eye"></i> View All
+                            </button>
+                        </div>
+                        <div class="orders-list">
+                            <!-- Recent orders will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Builder -->
+                <div id="menuBuilder" class="dashboard-section" style="display: none;">
+                    <div class="menu-builder">
+                        <div class="section-header">
+                            <h2 class="section-title">Menu Builder</h2>
+                            <button class="btn btn-sm" onclick="showAddCategoryModal()">
+                                <i class="fas fa-plus"></i> Add Category
+                            </button>
+                        </div>
+                        
+                        <div class="categories-grid" id="categoriesGrid">
+                            <!-- Categories will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orders Management -->
+                <div id="orders" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Order Management</h2>
+                        <div class="btn-group">
+                            <button class="btn btn-sm" onclick="refreshOrders()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="order-management">
+                        <div class="order-column">
+                            <div class="column-header">
+                                <div class="column-title">
+                                    <div class="column-icon new">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <span>New Orders</span>
+                                </div>
+                                <span class="order-count">5</span>
+                            </div>
+                            <div class="orders-list" id="newOrders" ondrop="dropOrder(event)" ondragover="allowDrop(event)">
+                                <!-- New orders will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="order-column">
+                            <div class="column-header">
+                                <div class="column-title">
+                                    <div class="column-icon preparing">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                    <span>Preparing</span>
+                                </div>
+                                <span class="order-count">3</span>
+                            </div>
+                            <div class="orders-list" id="preparingOrders" ondrop="dropOrder(event)" ondragover="allowDrop(event)">
+                                <!-- Preparing orders will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="order-column">
+                            <div class="column-header">
+                                <div class="column-title">
+                                    <div class="column-icon ready">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <span>Ready</span>
+                                </div>
+                                <span class="order-count">2</span>
+                            </div>
+                            <div class="orders-list" id="readyOrders" ondrop="dropOrder(event)" ondragover="allowDrop(event)">
+                                <!-- Ready orders will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Menu -->
+    <div id="customerMenu" style="display: none;">
+        <div class="customer-menu">
+            <div class="menu-container">
+                <!-- Menu Header -->
+                <div class="menu-header">
+                    <h1 class="restaurant-name">Spice Haven</h1>
+                    <p class="restaurant-tagline">Experience authentic Indian flavors with our traditional recipes</p>
+                    <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                        <span style="color: var(--gray);"><i class="fas fa-clock"></i> Open until 11 PM</span>
+                        <span style="color: var(--gray);"><i class="fas fa-star"></i> 4.8 (120 reviews)</span>
+                    </div>
+                </div>
+                
+                <!-- Category Tabs -->
+                <div class="category-tabs">
+                    <button class="category-tab active" onclick="filterMenu('all')">
+                        <span>All Items</span>
+                    </button>
+                    <button class="category-tab" onclick="filterMenu('appetizers')">
+                        <span>Appetizers</span>
+                    </button>
+                    <button class="category-tab" onclick="filterMenu('mains')">
+                        <span>Main Course</span>
+                    </button>
+                    <button class="category-tab" onclick="filterMenu('breads')">
+                        <span>Breads</span>
+                    </button>
+                    <button class="category-tab" onclick="filterMenu('desserts')">
+                        <span>Desserts</span>
+                    </button>
+                    <button class="category-tab" onclick="filterMenu('drinks')">
+                        <span>Drinks</span>
+                    </button>
+                </div>
+                
+                <!-- Menu Items Grid -->
+                <div class="menu-items-grid" id="menuItemsGrid">
+                    <!-- Menu items will be loaded here -->
+                </div>
+                
+                <!-- Floating Cart Button -->
+                <div class="cart-fab" onclick="showCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Page -->
+    <div id="cartPage" style="display: none;">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h1 style="font-size: 36px; margin-bottom: 10px;">Your Cart</h1>
+                <p style="color: var(--gray); font-size: 18px;">Review your order before checkout</p>
+                <div style="display: flex; gap: 10px; margin-top: 20px; justify-content: center;">
+                    <span style="color: var(--gray);"><i class="fas fa-utensils"></i> Table 05</span>
+                    <span style="color: var(--gray);"><i class="fas fa-user"></i> 2 Guests</span>
+                </div>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be loaded here -->
+            </div>
+            
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (5%)</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Service Charge</span>
+                    <span id="service">₹0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="total">₹0.00</span>
+                </div>
+                
+                <button class="btn" onclick="checkout()" style="margin-top: 30px;">
+                    <i class="fas fa-credit-card"></i> Proceed to Checkout
+                </button>
+                <button class="btn btn-outline" onclick="showCustomerMenu()" style="margin-top: 15px;">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Modals -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Category</h2>
+                <button class="modal-close" onclick="closeModal('addCategoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm">
+                    <div class="form-group">
+                        <label class="form-label">Category Name</label>
+                        <input type="text" class="form-control" placeholder="e.g., Appetizers, Main Course" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Brief description of this category"></textarea>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
