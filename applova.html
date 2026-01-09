@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applova | Restaurant Digital Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap">
+    <style>
+        /* Modern Color Palette & Variables */
+        :root {
+            --applova-primary: #2563eb;
+            --applova-secondary: #7c3aed;
+            --applova-accent: #06b6d4;
+            --applova-success: #10b981;
+            --applova-warning: #f59e0b;
+            --applova-danger: #ef4444;
+            
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #1e293b;
+            --bg-dark: #0f172a;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #f1f5f9;
+            
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Dark Mode Variables */
+        .dark-mode {
+            --bg-light: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-light: #334155;
+            --border-medium: #475569;
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition-normal);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark-mode .glass {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: var(--radius-full);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--applova-primary);
+            border-radius: var(--radius-full);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--applova-secondary);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Loading Animation */
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        /* Auth Pages */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            width: 400%;
+            height: 400%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 20s infinite linear;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            z-index: 10;
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .auth-card-inner {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: translateY(0);
+            transition: var(--transition-normal);
+        }
+        
+        .dark-mode .auth-card-inner {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .auth-card-inner:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+        }
+        
+        .auth-header {
+            padding: 40px;
+            text-align: center;
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .logo-sparkle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: rgba(255,255,255,0.5);
+            animation: rotate 10s infinite linear;
+        }
+        
+        .auth-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .auth-header p {
+            opacity: 0.9;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .feature-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .auth-body {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            transition: var(--transition-fast);
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+        
+        .form-control:focus {
+            border-color: var(--applova-primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            z-index: 2;
+        }
+        
+        .input-with-icon .form-control {
+            padding-left: 55px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            text-align: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-normal);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--gradient-secondary);
+        }
+        
+        .btn-accent {
+            background: var(--gradient-accent);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--applova-primary);
+            color: var(--applova-primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 12px 24px;
+            font-size: 14px;
+            width: auto;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: var(--text-secondary);
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .auth-footer {
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .auth-footer a {
+            color: var(--applova-primary);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .auth-footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: var(--transition-normal);
+        }
+        
+        .auth-footer a:hover::after {
+            width: 100%;
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-light);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+        
+        .sidebar-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-glow);
+            animation: pulse 3s infinite;
+        }
+        
+        .sidebar-toggle {
+            position: absolute;
+            top: 35px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            border: 3px solid var(--bg-light);
+            z-index: 1001;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .sidebar-toggle:hover {
+            transform: rotate(180deg);
+            background: var(--gradient-accent);
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 25px 0;
+            flex: 1;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 30px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transform: scaleY(0);
+            transition: var(--transition-normal);
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.05);
+            padding-left: 35px;
+        }
+        
+        .nav-link.active::before {
+            transform: scaleY(1);
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            transition: var(--transition-fast);
+        }
+        
+        .nav-link:hover .nav-icon {
+            transform: scale(1.2);
+        }
+        
+        .nav-text {
+            font-size: 15px;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .nav-badge {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .feature-tag {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+            transition: var(--transition-normal);
+            min-height: 100vh;
+        }
+        
+        .main-content.expanded {
+            margin-left: 0;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background: var(--bg-card);
+            padding: 20px 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideInRight 0.6s ease-out;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 16px 25px 16px 55px;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-full);
+            font-size: 16px;
+            background: var(--bg-light);
+            transition: var(--transition-fast);
+        }
+        
+        .search-bar:focus {
+            border-color: var(--applova-primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background: var(--bg-card);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background: var(--bg-light);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+        
+        .action-btn:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: var(--radius-full);
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border: 2px solid var(--bg-card);
+            animation: pulse 2s infinite;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: var(--radius-lg);
+            transition: var(--transition-fast);
+        }
+        
+        .user-profile:hover {
+            background: var(--bg-light);
+        }
+        
+        .user-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            border: 3px solid var(--bg-card);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-fast);
+        }
+        
+        .user-profile:hover .user-avatar {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .user-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .user-info p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+        }
+        
+        .stat-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .stat-info h3 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 5px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .stat-change.positive {
+            color: var(--applova-success);
+        }
+        
+        .stat-change.negative {
+            color: var(--applova-danger);
+        }
+        
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0.9;
+        }
+        
+        .stat-icon i {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Applova Features Section */
+        .features-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+            border: 1px solid var(--border-light);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--applova-primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Kiosk Preview */
+        .kiosk-preview {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin: 15px 0;
+            border: 2px solid #475569;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kiosk-screen {
+            background: white;
+            color: #1e293b;
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 350px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .kiosk-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+        
+        .kiosk-navigation {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .kiosk-btn {
+            flex: 1;
+            background: #475569;
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .kiosk-btn:hover {
+            background: var(--applova-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Menu Items Grid */
+        .menu-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .menu-item-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            border: 1px solid var(--border-light);
+        }
+        
+        .menu-item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+        }
+        
+        .toast {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(100%);
+            opacity: 0;
+            animation: slideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            border-left: 4px solid var(--applova-primary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--applova-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        /* Samsung S8+ Specific Responsive */
+        @media (max-width: 740px) {
+            /* Samsung S8+ has 360x740 resolution */
+            .main-content {
+                padding: 15px;
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                width: 280px;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .top-bar {
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container {
+                max-width: 100%;
+                order: 2;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: space-between;
+                order: 1;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: 20px;
+            }
+            
+            .stat-value {
+                font-size: 32px;
+            }
+            
+            .features-section {
+                padding: 20px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .menu-items-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .kiosk-preview {
+                padding: 20px;
+            }
+            
+            .kiosk-screen {
+                padding: 15px;
+                min-height: 280px;
+            }
+            
+            .auth-card {
+                max-width: 100%;
+            }
+            
+            .auth-body {
+                padding: 25px;
+            }
+            
+            .auth-header {
+                padding: 30px 20px;
+            }
+            
+            .form-control {
+                padding: 14px 16px;
+            }
+            
+            .btn {
+                padding: 14px 24px;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .auth-body {
+                padding: 30px 20px;
+            }
+            
+            .auth-header {
+                padding: 30px 20px;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-items-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .auth-card {
+                max-width: 100%;
+            }
+            
+            .menu-header {
+                padding: 30px 15px;
+            }
+            
+            .restaurant-name {
+                font-size: 36px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            animation: bounce 3s infinite;
+        }
+        
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: flex;
+            }
+        }
+        
+        /* Samsung S8+ specific optimization */
+        @media (max-width: 360px) {
+            .top-bar {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .action-btn {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .user-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .user-info h4 {
+                font-size: 14px;
+            }
+            
+            .user-info p {
+                font-size: 12px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 28px;
+            }
+            
+            .stat-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .menu-item-card {
+                margin-bottom: 10px;
+            }
+            
+            .btn-sm {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Shapes -->
+    <div class="floating-shapes" id="floatingShapes"></div>
+
+    <!-- Signup Page -->
+    <div id="signupPage" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-card-inner">
+                <div class="auth-header">
+                    <div class="logo-sparkle">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h1>Join Applova</h1>
+                    <p>Transform Your Restaurant with Digital Innovation</p>
+                    <div class="feature-badges">
+                        <span class="feature-badge">
+                            <i class="fas fa-mobile-alt"></i> Mobile Ordering
+                        </span>
+                        <span class="feature-badge">
+                            <i class="fas fa-tv"></i> Self-Service Kiosks
+                        </span>
+                        <span class="feature-badge">
+                            <i class="fas fa-chart-line"></i> Smart Analytics
+                        </span>
+                    </div>
+                </div>
+                <div class="auth-body">
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label class="form-label">Restaurant Name</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-store input-icon"></i>
+                                <input type="text" class="form-control" placeholder="Enter your restaurant name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Business Type</label>
+                            <select class="form-control" required>
+                                <option value="">Select your business type</option>
+                                <option value="cafe">Cafe</option>
+                                <option value="restaurant">Restaurant</option>
+                                <option value="pizzeria">Pizzeria</option>
+                                <option value="food-truck">Food Truck</option>
+                                <option value="qsr">Quick Service Restaurant</option>
+                                <option value="fine-dining">Fine Dining</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <div class="phone-input" style="display: flex; gap: 12px;">
+                                <div class="country-code" style="flex: 0 0 140px; position: relative;">
+                                    <select class="form-control" required style="padding-left: 50px;">
+                                        <option value="+91">🇮🇳 India +91</option>
+                                        <option value="+1">🇺🇸 United States +1</option>
+                                        <option value="+44">🇬🇧 United Kingdom +44</option>
+                                        <option value="+61">🇦🇺 Australia +61</option>
+                                    </select>
+                                    <i class="fas fa-globe" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
+                                </div>
+                                <div class="phone-number" style="flex: 1;">
+                                    <input type="tel" class="form-control" placeholder="Phone number" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-control" placeholder="Create a password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-control" placeholder="Confirm your password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-check" style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <input type="checkbox" id="posIntegration" class="form-check-input" style="width: 18px; height: 18px;">
+                                <label for="posIntegration" class="form-check-label" style="font-size: 14px;">I want POS integration</label>
+                            </div>
+                            <div class="form-check" style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="kioskInterest" class="form-check-input" style="width: 18px; height: 18px;">
+                                <label for="kioskInterest" class="form-check-label" style="font-size: 14px;">Interested in self-order kiosks</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-rocket"></i> Start Free Trial
+                        </button>
+                        
+                        <div class="divider">
+                            <span>ALREADY USING APPLOVA?</span>
+                        </div>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="switchToLogin()">
+                            <i class="fas fa-sign-in-alt"></i> Log In to Dashboard
+                        </button>
+                    </form>
+                </div>
+                <div class="auth-footer">
+                    <p>By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-secondary);">
+                        <i class="fas fa-shield-alt"></i> Trusted by 5000+ restaurants worldwide
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="auth-container" style="display: none;">
+        <div class="auth-card">
+            <div class="auth-card-inner">
+                <div class="auth-header">
+                    <div class="logo-sparkle">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h1>Welcome Back</h1>
+                    <p>Access Your Restaurant Dashboard</p>
+                </div>
+                <div class="auth-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-control" placeholder="Enter your password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="form-check" style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="rememberMe" class="form-check-input" style="width: 18px; height: 18px;">
+                                <label for="rememberMe" class="form-check-label" style="font-size: 14px;">Remember me</label>
+                            </div>
+                            <a href="#" onclick="showForgotPassword()" style="font-size: 14px; color: var(--applova-primary); font-weight: 500;">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-sign-in-alt"></i> Access Dashboard
+                        </button>
+                        
+                        <div class="auth-footer">
+                            <p>New to Applova? <a href="#" onclick="switchToSignup()">Start free trial</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" style="display: none;">
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <span>Applova</span>
+                    </div>
+                    <div class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="showSection('dashboardHome')">
+                            <i class="fas fa-home nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('menuBuilder')">
+                            <i class="fas fa-concierge-bell nav-icon"></i>
+                            <span class="nav-text">Digital Menu</span>
+                            <span class="nav-badge">12</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('orders')">
+                            <i class="fas fa-clipboard-list nav-icon"></i>
+                            <span class="nav-text">Orders</span>
+                            <span class="nav-badge" id="ordersBadge">8</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('analytics')">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('kiosk')">
+                            <i class="fas fa-tv nav-icon"></i>
+                            <span class="nav-text">Kiosk Manager</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showCustomerMenu()">
+                            <i class="fas fa-eye nav-icon"></i>
+                            <span class="nav-text">Customer View</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-footer">
+                    <div style="color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 10px;">Applova Features</div>
+                    <div class="feature-tags">
+                        <span class="feature-tag">POS Sync</span>
+                        <span class="feature-tag">Kiosk</span>
+                        <span class="feature-tag">Mobile App</span>
+                        <span class="feature-tag">Analytics</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content" id="mainContent">
+                <!-- Top Bar -->
+                <div class="top-bar">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-bar" placeholder="Search orders, menu items, or analytics...">
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" onclick="toggleDarkMode()" id="darkModeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="action-btn" onclick="showNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="action-btn" onclick="showSupport()">
+                            <i class="fas fa-headset"></i>
+                        </button>
+                        <div class="user-profile" onclick="showProfileMenu()">
+                            <div class="user-avatar">RS</div>
+                            <div class="user-info">
+                                <h4>Restaurant Owner</h4>
+                                <p>Premium Plan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Home -->
+                <div id="dashboardHome" class="dashboard-section">
+                    <div style="margin-bottom: 30px; animation: slideInUp 0.6s;">
+                        <h1 style="font-size: 32px; margin-bottom: 10px; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome to Applova Dashboard</h1>
+                        <p style="color: var(--text-secondary);">Manage your restaurant's digital presence, orders, and analytics</p>
+                    </div>
+                    
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Today's Revenue</h3>
+                                    <div class="stat-value">₹24,850</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> 18% from yesterday
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Kiosk: ₹8,240 | Online: ₹16,610</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Total Orders</h3>
+                                    <div class="stat-value">142</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> 12% from yesterday
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Kiosk: 48 | Online: 94</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Avg Order Value</h3>
+                                    <div class="stat-value">₹175</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> ₹22 from pre-Applov
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">+14% increase with upsell</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Customer Satisfaction</h3>
+                                    <div class="stat-value">4.8/5</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> From 4.2
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">245 reviews this month</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Applova Features Section -->
+                    <div class="features-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Applova Platform Features</h2>
+                        </div>
+                        
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                                <h3 style="margin-bottom: 10px;">Self-Order Kiosks</h3>
+                                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 15px;">AI-powered kiosks reducing wait times by 40%</p>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-size: 12px; color: var(--applova-success); font-weight: 600;">Active</span>
+                                    <button class="btn btn-sm" onclick="showSection('kiosk')" style="width: auto; padding: 8px 16px;">
+                                        Manage
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <h3 style="margin-bottom: 10px;">Mobile Ordering</h3>
+                                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 15px;">Branded app & web ordering increasing sales by 25%</p>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-size: 12px; color: var(--applova-success); font-weight: 600;">Integrated</span>
+                                    <button class="btn btn-sm" onclick="showCustomerMenu()" style="width: auto; padding: 8px 16px;">
+                                        Preview
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <h3 style="margin-bottom: 10px;">Menu Intelligence</h3>
+                                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 15px;">Real-time analytics and menu optimization tools</p>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-size: 12px; color: var(--applova-success); font-weight: 600;">Analyzing</span>
+                                    <button class="btn btn-sm" onclick="showSection('analytics')" style="width: auto; padding: 8px 16px;">
+                                        View Reports
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-cash-register"></i>
+                                </div>
+                                <h3 style="margin-bottom: 10px;">POS Integration</h3>
+                                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 15px;">Sync with 50+ POS systems seamlessly</p>
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-size: 12px; color: var(--applova-success); font-weight: 600;">Connected</span>
+                                    <button class="btn btn-sm" onclick="showSection('analytics')" style="width: auto; padding: 8px 16px;">
+                                        Configure
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Kiosk Preview -->
+                    <div class="features-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Self-Order Kiosk Preview</h2>
+                            <span class="feature-badge" style="background: var(--gradient-accent); color: white;">
+                                <i class="fas fa-robot"></i> AI-Powered
+                            </span>
+                        </div>
+                        
+                        <div class="kiosk-preview">
+                            <div class="kiosk-screen">
+                                <h3 style="color: var(--applova-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-utensils"></i> Welcome to Spice Haven
+                                </h3>
+                                <p style="margin-bottom: 15px; color: #4b5563;">Browse our menu or use voice ordering:</p>
+                                
+                                <div style="background: #f3f4f6; padding: 15px; border-radius: var(--radius-md); margin-bottom: 20px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                        <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-microphone"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 600;">Voice Order Assistant</div>
+                                            <div style="font-size: 12px; color: #6b7280;">Try saying: "I want paneer tikka and garlic naan"</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+                                    <div style="background: #f3f4f6; padding: 15px; border-radius: var(--radius-md); text-align: center; transition: var(--transition-fast); cursor: pointer;" 
+                                         onmouseover="this.style.background='#e2e8f0'; this.style.transform='translateY(-2px)'" 
+                                         onmouseout="this.style.background='#f3f4f6'; this.style.transform='translateY(0)'">
+                                        <i class="fas fa-hamburger" style="color: var(--applova-primary); margin-bottom: 5px; font-size: 20px;"></i>
+                                        <div style="font-size: 12px; font-weight: 600;">Order Food</div>
+                                    </div>
+                                    <div style="background: #f3f4f6; padding: 15px; border-radius: var(--radius-md); text-align: center; transition: var(--transition-fast); cursor: pointer;"
+                                         onmouseover="this.style.background='#e2e8f0'; this.style.transform='translateY(-2px)'" 
+                                         onmouseout="this.style.background='#f3f4f6'; this.style.transform='translateY(0)'">
+                                        <i class="fas fa-wine-glass-alt" style="color: var(--applova-primary); margin-bottom: 5px; font-size: 20px;"></i>
+                                        <div style="font-size: 12px; font-weight: 600;">Drinks</div>
+                                    </div>
+                                    <div style="background: #f3f4f6; padding: 15px; border-radius: var(--radius-md); text-align: center; transition: var(--transition-fast); cursor: pointer;"
+                                         onmouseover="this.style.background='#e2e8f0'; this.style.transform='translateY(-2px)'" 
+                                         onmouseout="this.style.background='#f3f4f6'; this.style.transform='translateY(0)'">
+                                        <i class="fas fa-ice-cream" style="color: var(--applova-primary); margin-bottom: 5px; font-size: 20px;"></i>
+                                        <div style="font-size: 12px; font-weight: 600;">Desserts</div>
+                                    </div>
+                                    <div style="background: #f3f4f6; padding: 15px; border-radius: var(--radius-md); text-align: center; transition: var(--transition-fast); cursor: pointer;"
+                                         onmouseover="this.style.background='#e2e8f0'; this.style.transform='translateY(-2px)'" 
+                                         onmouseout="this.style.background='#f3f4f6'; this.style.transform='translateY(0)'">
+                                        <i class="fas fa-shopping-cart" style="color: var(--applova-primary); margin-bottom: 5px; font-size: 20px;"></i>
+                                        <div style="font-size: 12px; font-weight: 600;">View Cart (3)</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; font-size: 11px; color: #9ca3af; text-align: center;">
+                                    <i class="fas fa-bolt" style="color: var(--applova-accent);"></i> Powered by Applova AI • Average order time: 1.5 min
+                                </div>
+                            </div>
+                            <div class="kiosk-navigation">
+                                <button class="kiosk-btn" onclick="simulateKioskOrder()">
+                                    <i class="fas fa-shopping-cart"></i> Simulate Order
+                                </button>
+                                <button class="kiosk-btn" onclick="showSection('kiosk')">
+                                    <i class="fas fa-cog"></i> Kiosk Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Menu Section -->
+                <div id="menuBuilder" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Digital Menu Builder</h2>
+                        <button class="btn btn-sm btn-accent" onclick="createNewMenuItem()">
+                            <i class="fas fa-plus"></i> Add Menu Item
+                        </button>
+                    </div>
+                    
+                    <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 30px; margin-bottom: 30px; box-shadow: var(--shadow-md);">
+                        <h3 style="margin-bottom: 20px; color: var(--text-primary); display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-concierge-bell"></i> Menu Categories
+                        </h3>
+                        
+                        <div class="categories-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                            <div class="category-card" style="background: linear-gradient(135deg, var(--applova-primary), var(--applova-secondary)); color: white; padding: 25px; border-radius: var(--radius-lg); cursor: pointer; transition: var(--transition-normal);" 
+                                 onclick="showCategoryItems('Appetizers')" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <i class="fas fa-utensils" style="font-size: 32px; margin-bottom: 15px;"></i>
+                                <h4 style="margin-bottom: 5px;">Appetizers</h4>
+                                <p style="font-size: 14px; opacity: 0.9;">12 items</p>
+                            </div>
+                            
+                            <div class="category-card" style="background: linear-gradient(135deg, var(--applova-accent), var(--applova-secondary)); color: white; padding: 25px; border-radius: var(--radius-lg); cursor: pointer; transition: var(--transition-normal);" 
+                                 onclick="showCategoryItems('Main Course')" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <i class="fas fa-drumstick-bite" style="font-size: 32px; margin-bottom: 15px;"></i>
+                                <h4 style="margin-bottom: 5px;">Main Course</h4>
+                                <p style="font-size: 14px; opacity: 0.9;">18 items</p>
+                            </div>
+                            
+                            <div class="category-card" style="background: linear-gradient(135deg, var(--applova-success), var(--applova-accent)); color: white; padding: 25px; border-radius: var(--radius-lg); cursor: pointer; transition: var(--transition-normal);" 
+                                 onclick="showCategoryItems('Breads')" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <i class="fas fa-bread-slice" style="font-size: 32px; margin-bottom: 15px;"></i>
+                                <h4 style="margin-bottom: 5px;">Breads</h4>
+                                <p style="font-size: 14px; opacity: 0.9;">8 items</p>
+                            </div>
+                            
+                            <div class="category-card" style="background: linear-gradient(135deg, var(--applova-warning), var(--applova-danger)); color: white; padding: 25px; border-radius: var(--radius-lg); cursor: pointer; transition: var(--transition-normal);" 
+                                 onclick="showCategoryItems('Desserts')" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <i class="fas fa-ice-cream" style="font-size: 32px; margin-bottom: 15px;"></i>
+                                <h4 style="margin-bottom: 5px;">Desserts</h4>
+                                <p style="font-size: 14px; opacity: 0.9;">10 items</p>
+                            </div>
+                            
+                            <div class="category-card" style="background: linear-gradient(135deg, var(--applova-secondary), #8b5cf6); color: white; padding: 25px; border-radius: var(--radius-lg); cursor: pointer; transition: var(--transition-normal);" 
+                                 onclick="showCategoryItems('Drinks')" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <i class="fas fa-wine-glass-alt" style="font-size: 32px; margin-bottom: 15px;"></i>
+                                <h4 style="margin-bottom: 5px;">Drinks</h4>
+                                <p style="font-size: 14px; opacity: 0.9;">15 items</p>
+                            </div>
+                            
+                            <div class="category-card" style="background: var(--bg-card); border: 2px dashed var(--border-medium); color: var(--text-secondary); padding: 25px; border-radius: var(--radius-lg); cursor: pointer; transition: var(--transition-normal); text-align: center;" 
+                                 onclick="createNewCategory()" onmouseover="this.style.borderColor='var(--applova-primary)'; this.style.color='var(--applova-primary)'" onmouseout="this.style.borderColor='var(--border-medium)'; this.style.color='var(--text-secondary)'">
+                                <i class="fas fa-plus" style="font-size: 32px; margin-bottom: 15px;"></i>
+                                <h4 style="margin-bottom: 5px;">Add Category</h4>
+                                <p style="font-size: 14px;">Create new category</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-md);">
+                        <h3 style="margin-bottom: 25px; color: var(--text-primary); display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-hamburger"></i> All Menu Items
+                            <span style="font-size: 14px; color: var(--text-secondary); margin-left: auto;">63 items total</span>
+                        </h3>
+                        
+                        <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <div class="input-with-icon">
+                                    <i class="fas fa-search input-icon"></i>
+                                    <input type="text" class="form-control" placeholder="Search menu items..." onkeyup="searchMenuItems(this.value)">
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-sm btn-outline" onclick="filterByCategory('all')">
+                                    All
+                                </button>
+                                <button class="btn btn-sm btn-outline" onclick="filterByCategory('appetizers')">
+                                    Appetizers
+                                </button>
+                                <button class="btn btn-sm btn-outline" onclick="filterByCategory('mains')">
+                                    Main Course
+                                </button>
+                                <button class="btn btn-sm" onclick="exportMenu()">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-items-grid" id="menuItemsGrid">
+                            <!-- Menu items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Section -->
+                <div id="orders" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Order Management</h2>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <span class="feature-badge" style="background: var(--gradient-accent); color: white;">
+                                <i class="fas fa-bolt"></i> Live Updates
+                            </span>
+                            <button class="btn btn-sm btn-accent" onclick="refreshOrders()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-stats" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 30px;">
+                        <div class="stat-card" onclick="filterOrders('new')" style="cursor: pointer;">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>New Orders</h3>
+                                    <div class="stat-value" id="newOrdersCount">8</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> 2 in last 5 min
+                                    </div>
+                                </div>
+                                <div class="stat-icon" style="background: var(--gradient-primary);">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card" onclick="filterOrders('preparing')" style="cursor: pointer;">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Preparing</h3>
+                                    <div class="stat-value" id="preparingOrdersCount">12</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-arrow-up"></i> Avg: 8 min
+                                    </div>
+                                </div>
+                                <div class="stat-icon" style="background: var(--gradient-secondary);">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card" onclick="filterOrders('ready')" style="cursor: pointer;">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Ready</h3>
+                                    <div class="stat-value" id="readyOrdersCount">5</div>
+                                    <div class="stat-change negative">
+                                        <i class="fas fa-clock"></i> Wait for pickup
+                                    </div>
+                                </div>
+                                <div class="stat-icon" style="background: var(--applova-success);">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card" onclick="filterOrders('completed')" style="cursor: pointer;">
+                            <div class="stat-content">
+                                <div class="stat-info">
+                                    <h3>Today's Total</h3>
+                                    <div class="stat-value" id="totalOrdersCount">142</div>
+                                    <div class="stat-change positive">
+                                        <i class="fas fa-rupee-sign"></i> ₹24,850
+                                    </div>
+                                </div>
+                                <div class="stat-icon" style="background: var(--gradient-accent);">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-md);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                            <h3 style="color: var(--text-primary); display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-clipboard-list"></i> Recent Orders
+                                <span style="font-size: 14px; color: var(--text-secondary);">(Last 24 hours)</span>
+                            </h3>
+                            
+                            <div style="display: flex; gap: 10px;">
+                                <div style="position: relative; min-width: 200px;">
+                                    <select class="form-control" onchange="filterOrders(this.value)" style="padding-left: 40px;">
+                                        <option value="all">All Orders</option>
+                                        <option value="new">New Orders</option>
+                                        <option value="preparing">Preparing</option>
+                                        <option value="ready">Ready</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="kiosk">Kiosk Orders</option>
+                                        <option value="mobile">Mobile Orders</option>
+                                    </select>
+                                    <i class="fas fa-filter" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
+                                </div>
+                                <button class="btn btn-sm" onclick="printOrders()">
+                                    <i class="fas fa-print"></i> Print
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="orders-table" style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: var(--bg-light); border-bottom: 2px solid var(--border-light);">
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Order ID</th>
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Status</th>
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Items</th>
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Total</th>
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Time</th>
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Source</th>
+                                        <th style="padding: 15px; text-align: left; color: var(--text-secondary); font-weight: 600;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <!-- Orders will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+                            <h4 style="margin-bottom: 15px; color: var(--text-primary);">Order Sources Analysis</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                                <div style="background: var(--bg-light); padding: 20px; border-radius: var(--radius-md);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                        <div style="width: 40px; height: 40px; background: var(--gradient-primary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-tv"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 24px; font-weight: 700; color: var(--text-primary);">48</div>
+                                            <div style="font-size: 14px; color: var(--text-secondary);">Kiosk Orders</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--applova-success);">
+                                        <i class="fas fa-arrow-up"></i> Avg value: ₹215
+                                    </div>
+                                </div>
+                                
+                                <div style="background: var(--bg-light); padding: 20px; border-radius: var(--radius-md);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                        <div style="width: 40px; height: 40px; background: var(--gradient-secondary); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 24px; font-weight: 700; color: var(--text-primary);">94</div>
+                                            <div style="font-size: 14px; color: var(--text-secondary);">Mobile Orders</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--applova-success);">
+                                        <i class="fas fa-arrow-up"></i> Avg value: ₹198
+                                    </div>
+                                </div>
+                                
+                                <div style="background: var(--bg-light); padding: 20px; border-radius: var(--radius-md);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                        <div style="width: 40px; height: 40px; background: var(--gradient-accent); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: white;">
+                                            <i class="fas fa-robot"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 24px; font-weight: 700; color: var(--text-primary);">32</div>
+                                            <div style="font-size: 14px; color: var(--text-secondary);">AI Recommendations</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--applova-success);">
+                                        <i class="fas fa-arrow-up"></i> +14% value
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Section -->
+                <div id="analytics" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Analytics Dashboard</h2>
+                        <button class="btn btn-sm btn-accent" onclick="exportAnalytics()">
+                            <i class="fas fa-download"></i> Export Report
+                        </button>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-md); text-align: center;">
+                        <h3 style="margin-bottom: 20px; color: var(--text-primary);">Analytics Coming Soon!</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 30px;">Detailed analytics and reporting features will be available soon.</p>
+                        <div class="feature-badge" style="margin: 0 auto; background: var(--gradient-primary); color: white;">
+                            <i class="fas fa-chart-line"></i> Real-time Analytics
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kiosk Manager Section -->
+                <div id="kiosk" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Kiosk Manager</h2>
+                        <button class="btn btn-sm btn-accent" onclick="addNewKiosk()">
+                            <i class="fas fa-plus"></i> Add Kiosk
+                        </button>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-md); text-align: center;">
+                        <h3 style="margin-bottom: 20px; color: var(--text-primary);">Kiosk Management</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 30px;">Configure and manage your self-service kiosks here.</p>
+                        <div class="feature-badge" style="margin: 0 auto; background: var(--gradient-accent); color: white;">
+                            <i class="fas fa-robot"></i> AI-Powered Kiosks
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Enhanced Application State with Applova features
+        const state = {
+            currentUser: null,
+            restaurant: {
+                name: 'Spice Haven',
+                type: 'restaurant',
+                plan: 'premium',
+                features: ['kiosk', 'mobile', 'analytics', 'pos']
+            },
+            categories: [
+                { id: 1, name: 'Starter', description: 'Starters and small plates', priority: 1, showInKiosk: true, items: [] },
+                { id: 2, name: 'Main Course', description: 'Hearty main dishes', priority: 1, showInKiosk: true, items: [] },
+                { id: 3, name: 'Breads', description: 'Traditional Indian breads', priority: 2, showInKiosk: true, items: [] },
+                { id: 4, name: 'Desserts', description: 'Sweet treats', priority: 3, showInKiosk: true, items: [] },
+                { id: 5, name: 'Drinks', description: 'Beverages and traditional drinks', priority: 2, showInKiosk: true, items: [] }
+            ],
+            menuItems: [],
+            cart: [],
+            orders: [],
+            kiosks: [
+                { id: 1, name: 'Entrance Kiosk', status: 'active', ordersToday: 24, avgValue: 215 },
+                { id: 2, name: 'Dining Area Kiosk', status: 'active', ordersToday: 18, avgValue: 198 },
+                { id: 3, name: 'Takeaway Kiosk', status: 'active', ordersToday: 6, avgValue: 245 }
+            ],
+            currentSection: 'dashboardHome',
+            darkMode: localStorage.getItem('darkMode') === 'true'
+        };
+
+        // Initialize floating shapes
+        function createFloatingShapes() {
+            const container = document.getElementById('floatingShapes');
+            if (!container) return;
+            
+            for (let i = 0; i < 5; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'shape';
+                shape.style.width = `${Math.random() * 100 + 50}px`;
+                shape.style.height = shape.style.width;
+                shape.style.top = `${Math.random() * 100}%`;
+                shape.style.left = `${Math.random() * 100}%`;
+                shape.style.animationDelay = `${Math.random() * 5}s`;
+                shape.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                container.appendChild(shape);
+            }
+        }
+
+        // Initialize with Applova-enhanced data
+        function initializeData() {
+            state.menuItems = [
+                { 
+                    id: 1, 
+                    name: 'Paneer Tikka', 
+                    price: 299, 
+                    category: 'appetizers', 
+                    description: 'Cottage cheese cubes marinated in spices and grilled in tandoor',
+                    badge: 'Best Seller',
+                    kioskRecommended: true,
+                    upsell: 'garlic-naan',
+                    image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=80'
+                },
+                { 
+                    id: 2, 
+                    name: 'Chicken Manchurian', 
+                    price: 349, 
+                    category: 'appetizers', 
+                    description: 'Crispy chicken in tangy Manchurian sauce',
+                    badge: 'Chef Special',
+                    kioskRecommended: true,
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80'
+                },
+                { 
+                    id: 3, 
+                    name: 'Butter Paneer', 
+                    price: 449, 
+                    category: 'mains', 
+                    description: 'Tender Paneer in rich tomato and butter gravy',
+                    badge: 'Applova Recommended',
+                    kioskRecommended: true,
+                    combo: true,
+                    image: 'https://images.unsplash.com/photo-1563379091339-03246963d9d6?auto=format&fit=crop&w=500&q=80'
+                },
+                { 
+                    id: 4, 
+                    name: 'Paneer Butter Masala', 
+                    price: 399, 
+                    category: 'mains', 
+                    description: 'Cottage cheese in creamy tomato and cashew gravy',
+                    badge: 'Vegetarian',
+                    kioskRecommended: true,
+                    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=500&q=80'
+                },
+                { 
+                    id: 5, 
+                    name: 'Chicken Biryani', 
+                    price: 379, 
+                    category: 'mains', 
+                    description: 'Fragrant basmati rice cooked with chicken and aromatic spices',
+                    badge: 'Popular',
+                    kioskRecommended: true,
+                    image: 'https://images.unsplash.com/photo-1563379091339-03246963d9d6?auto=format&fit=crop&w=500&q=80'
+                }
+            ];
+
+            state.orders = [
+                { 
+                    id: 1001, 
+                    status: 'new', 
+                    source: 'kiosk',
+                    items: ['Paneer Tikka', 'Butter Naan', 'Gulab Jamun'], 
+                    total: 527, 
+                    time: '12:30 PM',
+                    table: 'Table 05',
+                    guests: 2,
+                    kioskId: 1
+                },
+                { 
+                    id: 1002, 
+                    status: 'preparing', 
+                    source: 'mobile',
+                    items: ['Chicken Biryani', 'Garlic Naan', 'Mango Lassi'], 
+                    total: 597, 
+                    time: '12:15 PM',
+                    table: 'Table 12',
+                    guests: 1,
+                    orderType: 'takeaway'
+                },
+                { 
+                    id: 1003, 
+                    status: 'ready', 
+                    source: 'kiosk',
+                    items: ['Butter Paneer', 'Butter Naan', 'Masala Chai'], 
+                    total: 597, 
+                    time: '12:00 PM',
+                    table: 'Table 08',
+                    guests: 3,
+                    kioskId: 2
+                },
+                { 
+                    id: 1004, 
+                    status: 'new', 
+                    source: 'mobile',
+                    items: ['Chicken Manchurian', 'Garlic Naan'], 
+                    total: 438, 
+                    time: '12:45 PM',
+                    table: 'Table 03',
+                    guests: 2,
+                    orderType: 'dine-in'
+                }
+            ];
+
+            // Populate category items
+            state.categories.forEach(category => {
+                category.items = state.menuItems.filter(item => 
+                    item.category === category.name.toLowerCase()
+                );
+            });
+
+            // Initialize UI
+            renderMenuItems();
+            renderOrdersTable();
+            updateOrderCounts();
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info', duration = 5000) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                warning: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle'
+            };
+            
+            const colors = {
+                success: '#10b981',
+                error: '#ef4444',
+                warning: '#f59e0b',
+                info: '#3b82f6'
+            };
+            
+            toast.style.borderLeftColor = colors[type] || colors.info;
+            toast.innerHTML = `
+                <div class="toast-icon" style="color: ${colors[type] || colors.info}">
+                    <i class="${icons[type] || icons.info}"></i>
+                </div>
+                <div class="toast-content">
+                    <h4 style="font-size: 16px; margin-bottom: 5px; color: var(--text-primary);">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
+                    <p style="color: var(--text-secondary); font-size: 14px;">${message}</p>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Remove toast after duration
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, duration);
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle('dark-mode', state.darkMode);
+            localStorage.setItem('darkMode', state.darkMode);
+            
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) {
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.className = state.darkMode ? 'fas fa-sun' : 'fas fa-moon';
+                }
+            }
+            
+            showToast(state.darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'info');
+        }
+
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('expanded');
+        }
+
+        // Section Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.style.display = 'block';
+                section.style.animation = 'fadeIn 0.5s ease-out';
+            }
+            
+            // Update active nav link
+            const navMap = {
+                'dashboardHome': '.nav-item:nth-child(1) .nav-link',
+                'menuBuilder': '.nav-item:nth-child(2) .nav-link',
+                'orders': '.nav-item:nth-child(3) .nav-link',
+                'analytics': '.nav-item:nth-child(4) .nav-link',
+                'kiosk': '.nav-item:nth-child(5) .nav-link'
+            };
+            
+            if (navMap[sectionId]) {
+                const navLink = document.querySelector(navMap[sectionId]);
+                if (navLink) {
+                    navLink.classList.add('active');
+                }
+            }
+            
+            state.currentSection = sectionId;
+        }
+
+        // Menu Builder Functions
+        function createNewMenuItem() {
+            showToast('Creating new menu item...', 'info');
+            
+            // Simulate modal for adding new item
+            setTimeout(() => {
+                const newItem = {
+                    id: Date.now(),
+                    name: 'New Special Dish',
+                    price: 299,
+                    category: 'mains',
+                    description: 'Add description here',
+                    badge: 'New',
+                    kioskRecommended: true
+                };
+                
+                state.menuItems.push(newItem);
+                showToast('New menu item template created!', 'success');
+                renderMenuItems();
+            }, 1000);
+        }
+
+        function showCategoryItems(category) {
+            showToast(`Showing ${category} items`, 'info');
+            filterByCategory(category.toLowerCase().replace(' ', ''));
+        }
+
+        function createNewCategory() {
+            showToast('New category feature coming soon!', 'info');
+        }
+
+        function searchMenuItems(query) {
+            const filtered = state.menuItems.filter(item => 
+                item.name.toLowerCase().includes(query.toLowerCase()) ||
+                item.description.toLowerCase().includes(query.toLowerCase())
+            );
+            renderMenuItems(filtered);
+        }
+
+        function filterByCategory(category) {
+            if (category === 'all') {
+                renderMenuItems();
+            } else {
+                const filtered = state.menuItems.filter(item => 
+                    item.category === category
+                );
+                renderMenuItems(filtered);
+            }
+        }
+
+        function exportMenu() {
+            showToast('Exporting menu data...', 'info');
+            setTimeout(() => {
+                showToast('Menu exported successfully!', 'success');
+            }, 1500);
+        }
+
+        function renderMenuItems(items = state.menuItems) {
+            const container = document.getElementById('menuItemsGrid');
+            if (!container) return;
+            
+            container.innerHTML = items.map(item => `
+                <div class="menu-item-card">
+                    <div style="position: relative;">
+                        <div style="height: 180px; background: linear-gradient(135deg, #667eea, #764ba2); overflow: hidden; position: relative;">
+                            <div style="position: absolute; top: 15px; left: 15px; background: ${item.badge === 'Best Seller' ? 'var(--gradient-accent)' : 'var(--gradient-primary)'}; color: white; padding: 5px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600;">
+                                ${item.badge}
+                            </div>
+                            <div style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); color: white; padding: 5px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600;">
+                                ₹${item.price}
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h4 style="margin-bottom: 8px; color: var(--text-primary);">${item.name}</h4>
+                            <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 15px; height: 40px; overflow: hidden;">${item.description}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 12px; color: var(--text-secondary);">
+                                    <i class="fas fa-tag"></i> ${item.category}
+                                </span>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-sm" style="width: auto; padding: 6px 12px;" onclick="editMenuItem(${item.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-accent" style="width: auto; padding: 6px 12px;" onclick="viewMenuItem(${item.id})">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editMenuItem(id) {
+            const item = state.menuItems.find(i => i.id === id);
+            if (item) {
+                const newName = prompt('Enter new name for the item:', item.name);
+                if (newName && newName.trim()) {
+                    item.name = newName;
+                    showToast(`Menu item "${newName}" updated!`, 'success');
+                    renderMenuItems();
+                }
+            }
+        }
+
+        function viewMenuItem(id) {
+            const item = state.menuItems.find(i => i.id === id);
+            if (item) {
+                showToast(`Viewing: ${item.name} - ₹${item.price}`, 'info');
+            }
+        }
+
+        // Orders Functions
+        function refreshOrders() {
+            showToast('Refreshing orders...', 'info');
+            
+            // Simulate API call
+            setTimeout(() => {
+                updateOrderCounts();
+                renderOrdersTable();
+                showToast('Orders refreshed successfully!', 'success');
+            }, 1000);
+        }
+
+        function filterOrders(status) {
+            showToast(`Filtering orders: ${status}`, 'info');
+            renderOrdersTable(status);
+        }
+
+        function printOrders() {
+            showToast('Printing order summary...', 'info');
+            setTimeout(() => {
+                showToast('Order summary sent to printer!', 'success');
+            }, 1500);
+        }
+
+        function updateOrderCounts() {
+            const newOrders = state.orders.filter(o => o.status === 'new').length;
+            const preparingOrders = state.orders.filter(o => o.status === 'preparing').length;
+            const readyOrders = state.orders.filter(o => o.status === 'ready').length;
+            const totalOrders = state.orders.length;
+            
+            const newOrdersCount = document.getElementById('newOrdersCount');
+            const preparingOrdersCount = document.getElementById('preparingOrdersCount');
+            const readyOrdersCount = document.getElementById('readyOrdersCount');
+            const totalOrdersCount = document.getElementById('totalOrdersCount');
+            
+            if (newOrdersCount) newOrdersCount.textContent = newOrders;
+            if (preparingOrdersCount) preparingOrdersCount.textContent = preparingOrders;
+            if (readyOrdersCount) readyOrdersCount.textContent = readyOrders;
+            if (totalOrdersCount) totalOrdersCount.textContent = totalOrders;
+        }
+
+        function renderOrdersTable(filter = 'all') {
+            const container = document.getElementById('ordersTableBody');
+            if (!container) return;
+            
+            let filteredOrders = state.orders;
+            
+            if (filter === 'new') filteredOrders = state.orders.filter(o => o.status === 'new');
+            else if (filter === 'preparing') filteredOrders = state.orders.filter(o => o.status === 'preparing');
+            else if (filter === 'ready') filteredOrders = state.orders.filter(o => o.status === 'ready');
+            else if (filter === 'completed') filteredOrders = state.orders.filter(o => o.status === 'completed');
+            else if (filter === 'kiosk') filteredOrders = state.orders.filter(o => o.source === 'kiosk');
+            else if (filter === 'mobile') filteredOrders = state.orders.filter(o => o.source === 'mobile');
+            
+            container.innerHTML = filteredOrders.map(order => {
+                let statusColor, statusIcon;
+                switch(order.status) {
+                    case 'new':
+                        statusColor = 'var(--applova-primary)';
+                        statusIcon = 'fas fa-clock';
+                        break;
+                    case 'preparing':
+                        statusColor = 'var(--applova-warning)';
+                        statusIcon = 'fas fa-utensils';
+                        break;
+                    case 'ready':
+                        statusColor = 'var(--applova-success)';
+                        statusIcon = 'fas fa-check-circle';
+                        break;
+                    default:
+                        statusColor = 'var(--text-secondary)';
+                        statusIcon = 'fas fa-check';
+                }
+                
+                let sourceIcon, sourceColor;
+                switch(order.source) {
+                    case 'kiosk':
+                        sourceIcon = 'fas fa-tv';
+                        sourceColor = 'var(--applova-primary)';
+                        break;
+                    case 'mobile':
+                        sourceIcon = 'fas fa-mobile-alt';
+                        sourceColor = 'var(--applova-secondary)';
+                        break;
+                    default:
+                        sourceIcon = 'fas fa-shopping-cart';
+                        sourceColor = 'var(--text-secondary)';
+                }
+                
+                return `
+                    <tr style="border-bottom: 1px solid var(--border-light); transition: var(--transition-fast);" onmouseover="this.style.backgroundColor='var(--bg-light)'" onmouseout="this.style.backgroundColor='transparent'">
+                        <td style="padding: 15px;">
+                            <div style="font-weight: 600; color: var(--text-primary);">#${order.id}</div>
+                            ${order.table ? `<div style="font-size: 12px; color: var(--text-secondary);">${order.table} • ${order.guests} guests</div>` : ''}
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="display: inline-flex; align-items: center; gap: 6px; background: ${statusColor}15; color: ${statusColor}; padding: 6px 12px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600;">
+                                <i class="${statusIcon}"></i>
+                                ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="color: var(--text-primary); font-size: 14px;">${order.items.slice(0, 2).join(', ')}${order.items.length > 2 ? ` +${order.items.length - 2} more` : ''}</div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="font-weight: 700; color: var(--text-primary);">₹${order.total}</div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="color: var(--text-primary);">${order.time}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">${order.orderType || 'Dine-in'}</div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="display: flex; align-items: center; gap: 6px; color: ${sourceColor};">
+                                <i class="${sourceIcon}"></i>
+                                ${order.source.charAt(0).toUpperCase() + order.source.slice(1)}
+                            </div>
+                        </td>
+                        <td style="padding: 15px;">
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-sm" style="width: auto; padding: 6px 12px;" onclick="updateOrderStatus(${order.id})">
+                                    <i class="fas fa-forward"></i>
+                                </button>
+                                <button class="btn btn-sm btn-accent" style="width: auto; padding: 6px 12px;" onclick="viewOrderDetails(${order.id})">
+                                    Details
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateOrderStatus(orderId) {
+            const order = state.orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            const statuses = ['new', 'preparing', 'ready', 'completed'];
+            const currentIndex = statuses.indexOf(order.status);
+            if (currentIndex < statuses.length - 1) {
+                order.status = statuses[currentIndex + 1];
+                showToast(`Order #${orderId} marked as ${order.status}`, 'success');
+                renderOrdersTable();
+                updateOrderCounts();
+            }
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = state.orders.find(o => o.id === orderId);
+            if (order) {
+                showToast(`Viewing order #${orderId}: ${order.items.length} items, ₹${order.total}`, 'info');
+            }
+        }
+
+        // Applova-specific functions
+        function simulateKioskOrder() {
+            const orderId = Math.floor(1000 + Math.random() * 9000);
+            const newOrder = {
+                id: orderId,
+                status: 'new',
+                source: 'kiosk',
+                items: ['Paneer Tikka', 'Garlic Naan', 'Mango Lassi'],
+                total: 517,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                table: `Table ${Math.floor(Math.random() * 20) + 1}`,
+                guests: Math.floor(Math.random() * 4) + 1,
+                kioskId: Math.floor(Math.random() * 3) + 1
+            };
+            
+            state.orders.push(newOrder);
+            showToast(`Kiosk order #${orderId} simulated`, 'info');
+            
+            // Update orders badge
+            const ordersBadge = document.getElementById('ordersBadge');
+            if (ordersBadge) {
+                const currentCount = parseInt(ordersBadge.textContent) || 0;
+                ordersBadge.textContent = currentCount + 1;
+                ordersBadge.style.animation = 'none';
+                setTimeout(() => {
+                    ordersBadge.style.animation = 'bounce 2s infinite';
+                }, 10);
+            }
+            
+            // Update UI
+            renderOrdersTable();
+            updateOrderCounts();
+        }
+
+        function showNotifications() {
+            showToast('You have 3 new notifications', 'info');
+        }
+
+        function showSupport() {
+            showToast('Connecting to Applova Support...', 'info');
+            setTimeout(() => {
+                showToast('Support agent will contact you shortly', 'success');
+            }, 1500);
+        }
+
+        function showProfileMenu() {
+            showToast('Profile menu coming soon!', 'info');
+        }
+
+        // Other Section Functions
+        function exportAnalytics() {
+            showToast('Exporting analytics report...', 'info');
+        }
+
+        function addNewKiosk() {
+            showToast('Adding new kiosk...', 'info');
+        }
+
+        // Auth Functions
+        function switchToLogin() {
+            document.getElementById('signupPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            showToast('Sign in to your account', 'info');
+        }
+
+        function switchToSignup() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('signupPage').style.display = 'flex';
+            showToast('Create your business account', 'info');
+        }
+
+        function showForgotPassword() {
+            showToast('Password reset feature coming soon!', 'info');
+        }
+
+        // Customer View
+        function showCustomerMenu() {
+            document.getElementById('dashboard').style.display = 'none';
+            // You would implement the customer menu view here
+            showToast('Customer menu view coming soon!', 'info');
+            setTimeout(() => {
+                document.getElementById('dashboard').style.display = 'block';
+            }, 2000);
+        }
+
+        // Form Handlers
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputs = this.querySelectorAll('input, select');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (input.required && !input.value.trim()) {
+                    input.style.borderColor = 'var(--applova-danger)';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            
+            if (isValid) {
+                const restaurantName = this.querySelector('input[type="text"]').value;
+                const businessType = this.querySelector('select').value;
+                
+                state.currentUser = { 
+                    name: restaurantName, 
+                    email: this.querySelector('input[type="email"]').value,
+                    avatar: restaurantName.substring(0, 2).toUpperCase()
+                };
+                
+                state.restaurant.name = restaurantName;
+                state.restaurant.type = businessType;
+                
+                showToast('Welcome to Applova! Setting up your restaurant...', 'success');
+                
+                // Animated transition
+                this.style.transform = 'scale(0.95)';
+                this.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    document.getElementById('signupPage').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    
+                    // Apply dark mode if enabled
+                    if (state.darkMode) {
+                        document.body.classList.add('dark-mode');
+                    }
+                    
+                    initializeData();
+                    
+                    // Show welcome animation
+                    const welcomeMsg = document.querySelector('#dashboardHome h1');
+                    if (welcomeMsg) {
+                        welcomeMsg.style.animation = 'pulse 2s';
+                        setTimeout(() => {
+                            welcomeMsg.style.animation = '';
+                        }, 2000);
+                    }
+                    
+                    // Show onboarding toast
+                    setTimeout(() => {
+                        showToast('Your digital restaurant is ready! Explore the dashboard.', 'success', 3000);
+                    }, 1000);
+                }, 1500);
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            if (email && password) {
+                state.currentUser = { 
+                    name: 'Spice Haven', 
+                    email: email,
+                    avatar: 'SH'
+                };
+                
+                showToast('Welcome back!', 'success');
+                
+                // Animated transition
+                this.style.transform = 'scale(0.95)';
+                this.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    
+                    // Apply dark mode if enabled
+                    if (state.darkMode) {
+                        document.body.classList.add('dark-mode');
+                    }
+                    
+                    initializeData();
+                    
+                    // Show welcome animation
+                    const welcomeMsg = document.querySelector('#dashboardHome h1');
+                    if (welcomeMsg) {
+                        welcomeMsg.style.animation = 'pulse 2s';
+                        setTimeout(() => {
+                            welcomeMsg.style.animation = '';
+                        }, 2000);
+                    }
+                }, 1000);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating shapes
+            createFloatingShapes();
+            
+            // Set default view to signup
+            document.getElementById('signupPage').style.display = 'flex';
+            
+            // Apply saved dark mode
+            if (state.darkMode) {
+                document.body.classList.add('dark-mode');
+                const toggleBtn = document.getElementById('darkModeToggle');
+                if (toggleBtn) {
+                    const icon = toggleBtn.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-sun';
+                    }
+                }
+            }
+            
+            // Add some interactive effects
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'd') {
+                    toggleDarkMode();
+                }
+                if (e.ctrlKey && e.key === 'k') {
+                    e.preventDefault();
+                    document.querySelector('.search-bar')?.focus();
+                }
+            });
+            
+            // Show initial welcome message
+            setTimeout(() => {
+                showToast('Welcome to Applova Restaurant Platform!', 'info', 3000);
+            }, 1000);
+            
+            // Samsung S8+ specific optimizations
+            if (window.innerWidth <= 740) {
+                // Optimize for mobile
+                const allCards = document.querySelectorAll('.stat-card, .feature-card, .menu-item-card');
+                allCards.forEach(card => {
+                    card.style.transform = 'none';
+                    card.style.transition = 'none';
+                });
+            }
+        });
+
+        // Export state for debugging
+        window.applovaState = state;
+    </script>
+</body>
+</html>
